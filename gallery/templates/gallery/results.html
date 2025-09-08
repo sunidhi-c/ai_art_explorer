@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Search Results</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                padding: 20px;
+            }
+            h2 {
+                margin-bottom: 20px;
+            }
+            .gallery {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 20px;
+            }
+            .card img {
+                max-width: 100%;
+                border-radius: 6px;
+            }
+            .artist {
+                font-size: 14px;
+                color: #555;
+                margin-top: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Results for "{{ query }}"</h2>
+        <div class="gallery">
+            {% if artworks %}
+                {% for art in artworks %}
+                    <div class="card">
+                        {% if art.image %}
+                            <img src="{{ art.image }}" alt="{{ art.title }}" width="200">
+                        {% else %}
+                            <p>[No image Available]</p>
+                        {% endif %}
+                        <h3>{{ art.title }}</h3>
+                        <p class="artist">{{ art.artist|default:"Unknown Artist" }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No artworks found.</p>
+            {% endif %}
+        </div>
+    </body>
+</html>
